@@ -4,61 +4,59 @@ import java.util.ArrayList;
 
 public class Alumno extends PersonaAcademica {
     private ArrayList<Inscripcion> inscripciones;
-    private ArrayList<Curso> cursos;
 
     public Alumno(String nombre, int edad, String apellido, String sector, String facultad, String profesion, String carrera) {
         super(nombre, edad, apellido, sector, facultad, profesion, carrera);
         this.inscripciones = new ArrayList<>();
-        this.cursos = new ArrayList<>();
-    }
-
-    public ArrayList<Curso> getCursos() {
-        return cursos;
     }
 
     public ArrayList<Inscripcion> getInscripciones() {
         return inscripciones;
-
     }
 
-
-    public void inscribirseCurso(String numeroCurso, ArrayList<Curso> cursosDisponibles) {
-        Curso cursoInscripcion = buscarCursoPorNumero(numeroCurso, cursosDisponibles);
-        if (cursoInscripcion != null) {
-            cursos.add(cursoInscripcion);
+    public void inscribirse(Curso curso, Alumno alumno) {
+        if (!yaInscritoEnCurso(curso)) {
+            inscripciones.add(new Inscripcion(alumno, curso));
         } else {
-            throw new RuntimeException("Error, el curso no fue encontrado");
+            throw new RuntimeException("Ya estás inscrito en el curso");
         }
     }
 
-    public void removerInscripcionCurso(String numeroCurso) {
-        Curso cursoAEliminar = obtenerCursoPorNumero(numeroCurso);
-        if (cursoAEliminar != null) {
-            cursos.remove(cursoAEliminar);
+    public void mostrarCursosInscritos() {
+        if (inscripciones.isEmpty()) {
+            System.out.println("No ingresaste a ningun curso!");
+
         } else {
-            throw new RuntimeException("Error, el curso no fue encontrado");
+            System.out.println("Estos son tus Cursos");
+            for (Inscripcion ins : inscripciones) {
+                System.out.println("- " + ins.getCurso().getNumero());
+            }
         }
     }
 
-    // Esta busca solo en los cursos del alumno
-    private Curso obtenerCursoPorNumero(String numeroCurso) {
-        for (Curso curso : cursos) {
-            if (curso.getNumero().equals(numeroCurso)) {
-                return curso;
+
+    public boolean buscarInscripcionPorCurso(Curso curso) {
+        for (Inscripcion ins : inscripciones) {
+            if (curso.equals(ins.getCurso())) {
+                return true;
+            }
+        }
+        System.out.println("No estás inscrito en ese curso");
+        return false;
+    }
+
+
+    public Inscripcion obtenerInscripcionPorCurso(Curso curso) {
+        for (Inscripcion ins : inscripciones) {
+            if (curso.equals(ins.getCurso())) {
+                return ins;
             }
         }
         return null;
     }
 
-    // Esta busca en los cursos disponibles del sistema
-    private Curso buscarCursoPorNumero(String numeroCurso, ArrayList<Curso> cursosDisponibles) {
-        for (Curso curso : cursosDisponibles) {
-            if (curso.getNumero().equals(numeroCurso)) {
-                return curso;
-            }
-        }
-        return null;
+
+    private boolean yaInscritoEnCurso(Curso curso) {
+        return inscripciones.stream().anyMatch(ins -> ins.getCurso().equals(curso));
     }
-
-
 }

@@ -7,12 +7,12 @@ public class DirectorFacu extends PersonaAcademica {
     private ArrayList<Docente> docentes;
     private ArrayList<Carrera> carreras;
 
-    public DirectorFacu(String nombre, int edad, String apellido, String sector, String facultad, String profesion, String carrera,
-                        ArrayList<ConsejoFac> consejeros, ArrayList<Docente> docentes, ArrayList<Carrera> carreras) {
+    public DirectorFacu(String nombre, int edad, String apellido, String sector, String facultad, String profesion, String carrera, ArrayList<ConsejoFac> consejeros, ArrayList<Docente> docentes, ArrayList<Carrera> carreras) {
         super(nombre, edad, apellido, sector, facultad, profesion, carrera);
-        this.consejeros = consejeros;
-        this.docentes = docentes;
-        this.carreras = carreras;
+        this.consejeros = consejeros != null ? consejeros : new ArrayList<>();
+        this.docentes = docentes != null ? docentes : new ArrayList<>();
+        this.carreras = carreras != null ? carreras : new ArrayList<>();
+
     }
 
     // Getters y setters
@@ -39,4 +39,9 @@ public class DirectorFacu extends PersonaAcademica {
     public void setCarreras(ArrayList<Carrera> carreras) {
         this.carreras = carreras;
     }
+
+    public void añadirCarrera() {
+    }
+
+
 }

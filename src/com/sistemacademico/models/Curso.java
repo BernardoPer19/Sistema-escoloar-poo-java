@@ -2,19 +2,22 @@ package com.sistemacademico.models;
 
 import java.util.ArrayList;
 
+import java.util.ArrayList;
+
 public class Curso {
     private String numero;
     private int maxEstudiantes;
-    private ArrayList<Alumno> alumnos;
     private Carrera carrera;
     private ArrayList<Docente> docentes;
+    private ArrayList<Alumno> alumnos;
 
-    public Curso(String numero, int maxEstudiantes, ArrayList<Alumno> alumnos, Carrera carrera, ArrayList<Docente> docentes) {
+
+    public Curso(String numero, int maxEstudiantes, Carrera carrera, ArrayList<Docente> docentes, ArrayList<Alumno> alumnos) {
         this.numero = numero;
         this.maxEstudiantes = maxEstudiantes;
-        this.alumnos = alumnos != null ? alumnos : new ArrayList<>();
         this.carrera = carrera;
         this.docentes = docentes != null ? docentes : new ArrayList<>();
+        this.alumnos = alumnos != null ? alumnos : new ArrayList<>();
     }
 
     public String getNumero() {
@@ -25,10 +28,6 @@ public class Curso {
         return maxEstudiantes;
     }
 
-    public ArrayList<Alumno> getAlumnos() {
-        return alumnos;
-    }
-
     public Carrera getCarrera() {
         return carrera;
     }
@@ -37,23 +36,27 @@ public class Curso {
         return docentes;
     }
 
-    public void inscribirseCurso(Alumno al) {
-        alumnos.add(al);
+
+    public ArrayList<Alumno> getAlumnos() {
+        return alumnos;
     }
 
-    // 🔁 Añadir o eliminar alumno del curso
-    public void alternarInscripcionAlumno(Alumno alumno) {
-        if (alumno.getNombre() == null || alumno.getNombre().isBlank() ||
-                alumno.getSector() == null || alumno.getSector().isBlank()) {
-            throw new RuntimeException("Error: el alumno no tiene nombre o sector definido.");
-        }
 
-        if (alumnos.contains(alumno)) {
-            alumnos.remove(alumno);
-            System.out.println("Alumno eliminado del curso.");
-        } else {
-            alumnos.add(alumno);
-            System.out.println("Alumno añadido al curso.");
+    public boolean buscarAlumno(Alumno estudianteBuscado) {
+        for (Alumno alumno : alumnos) {
+            if (alumno.equals(estudianteBuscado)) {
+                return true;
+            }
         }
+        return false;
     }
+
+
+    public boolean cursoExistente() {
+        if (numero != null && numero != "") {
+            return true;
+        }
+        return false;
+    }
+
 }

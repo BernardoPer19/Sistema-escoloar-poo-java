@@ -11,4 +11,21 @@ public class Docente extends PersonaAcademica {
     }
 
 
+    public void asignarNota(Alumno alumno, Curso curso, double nota) {
+        if (!curso.cursoExistente()) {
+            throw new RuntimeException("No existe el curso que buscas");
+        }
+        if (!curso.buscarAlumno(alumno)) {
+            throw new RuntimeException("No existe el estudiante");
+        }
+        Inscripcion ins = alumno.obtenerInscripcionPorCurso(curso);
+        if (ins != null) {
+            ins.setNota(nota);
+        } else {
+            throw new RuntimeException("El alumno no está inscrito en ese curso.");
+        }
+
+    }
+
+
 }

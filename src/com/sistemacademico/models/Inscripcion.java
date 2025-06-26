@@ -6,14 +6,12 @@ import java.util.ArrayList;
 public class Inscripcion {
     private Alumno alumno;
     private Curso curso;
-    private ArrayList<Double> notas;
-    private LocalDate fechaInscripcion;
+    private Double nota;
 
-    public Inscripcion(Alumno alumno, Curso curso, ArrayList<Double> notas, LocalDate fechaInscripcion) {
+    public Inscripcion(Alumno alumno, Curso curso) {
         this.alumno = alumno;
         this.curso = curso;
-        this.notas = notas != null ? notas : new ArrayList<>();
-        this.fechaInscripcion = fechaInscripcion;
+        this.nota = null;
     }
 
     public Alumno getAlumno() {
@@ -24,11 +22,13 @@ public class Inscripcion {
         return curso;
     }
 
-    public ArrayList<Double> getNotas() {
-        return notas;
+    public Double getNota() {
+        return nota;
     }
 
-    public LocalDate getFechaInscripcion() {
-        return fechaInscripcion;
+    public void setNota(Double nota) {
+        this.nota = nota;
     }
+
+
 }

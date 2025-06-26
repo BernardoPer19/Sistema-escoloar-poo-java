@@ -13,11 +13,6 @@ public class GestorInscripciones {
         if (alumno == null || curso == null) {
             throw new IllegalArgumentException("Alumno o curso no pueden ser nulos");
         }
-        alumno.getCursos().add(curso);
-        curso.getAlumnos().add(alumno);
-        Inscripcion inscripcion = new Inscripcion(alumno, curso, new ArrayList<>(), LocalDate.now());
-        alumno.getInscripciones().add(inscripcion);
-
-        return inscripcion;
+        return null;
     }
 }
